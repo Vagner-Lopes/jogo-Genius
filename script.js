@@ -1,57 +1,32 @@
 let ordemAleatoria = [];
 let ordemClicada = []
 let pontos = 0
-let contador = 0
 let jogo_rodando = false
-let game_over = false
+let game_over = true
+let som = document.getElementsByTagName('audio')
 
-let l1 = document.getElementById('1')
-let l2 = document.getElementById('2')
-let l3 = document.getElementById('3')
-let l4 = document.getElementById('4')
-let som = document.getElementById('somBotao')
-let somGameOver = document.getElementById('somGameOver')
-
-function getId(id) {
-
-    switch (id) {
-        case "1":
-            acendeLuz(l1)
-            checaSequencia(1)
-            break;
-        case "2":
-            //amarelho
-            acendeLuz(l2)
-            checaSequencia(2)
-            break;
-        case "3":
-            //vermelho
-            acendeLuz(l3)
-            checaSequencia(3)
-            break;
-        case "4":
-            //verde
-            acendeLuz(l4)
-            checaSequencia(4)
-            break;
-
-        default:
-            if (!jogo_rodando) {
-                jogo_rodando = true
-                game_over = false
-                somGameOver.pause()
-                somGameOver.currentTime = 0
-                sorteiaNumero()
-                l1 = document.getElementById('1')
-                l2 = document.getElementById('2')
-                l3 = document.getElementById('3')
-                l4 = document.getElementById('4')
-                som = document.getElementById('somBotao')
-                somGameOver = document.getElementById('somGameOver')
-            }
-            break;
+function start() {
+    if (!jogo_rodando) {
+        jogo_rodando = true
+        game_over = false
+        pontos = 0
+        somGameOver.pause()
+        somGameOver.currentTime = 0
+        sorteiaNumero()
     }
 }
+
+function getId(id) {
+    let botao = document.getElementById(id)
+    if (!game_over) {
+        checaSequencia(id)
+        acendeLuz(botao)
+        reproduzSom(som[id - 1])
+    } else {
+        console.log("jogo pausado");
+    }
+}
+
 function checaSequencia(id) {
     if (!game_over) {
         ordemClicada.push(id)
@@ -61,12 +36,11 @@ function checaSequencia(id) {
                 ordemAleatoria = []
                 jogo_rodando = false
                 game_over = true
-                somGameOver.play()
-                console.log('Errou');
+                som[4].play()
             } else {
                 if (ordemClicada.length == ordemAleatoria.length) {
-                    console.log("acertoooouuuuuuu tudo");
                     ordemClicada = []
+                    pontos++
                     sorteiaNumero()
                 }
             }
@@ -78,7 +52,6 @@ function sorteiaNumero() {
     if (!game_over) {
         let novoNumero = Math.floor(Math.random() * 4) + 1
         ordemAleatoria.push(novoNumero)
-        console.log(ordemAleatoria);
         sinalizaCores()
     }
 }
@@ -88,39 +61,43 @@ function sinalizaCores() {
         let cont = 0
         let apagado = true
         let luz
-        let tempo = window.setInterval(sinaliza, 500)
-        function sinaliza() {
-            if (cont < ordemAleatoria.length && apagado) {
-                console.log("aceso", apagado)
-                luz = document.getElementById(`${ordemAleatoria[cont]}`)
-                luz.classList.add('selecionado')
-                apagado = !apagado
-            } else if (cont < ordemAleatoria.length) {
-                console.log("aceso", apagado)
-                luz.classList.remove('selecionado')
-                apagado = !apagado
-                cont++
-            } else {
-                window.clearInterval(tempo)
-                tempo = null
+        setTimeout(() => {
+            let tempo = window.setInterval(sinaliza, 300)
+            function sinaliza() {
+                if (cont < ordemAleatoria.length && apagado) {
+                    luz = document.getElementById(`${ordemAleatoria[cont]}`)
+                    luz.classList.add('selecionado');
+                    reproduzSom(som[ordemAleatoria[cont] - 1])
+                    apagado = !apagado
+
+                } else if (cont < ordemAleatoria.length) {
+                    luz.classList.remove('selecionado')
+                    apagado = !apagado
+                    cont++
+                } else {
+                    window.clearInterval(tempo)
+                    tempo = null
+                }
             }
-        }
+        }, 902.753)
     }
 }
 
-function acendeLuz(elemento) {
-    elemento.addEventListener("mousedown", function (e) {
-        elemento.classList.add('selecionado')
+function reproduzSom(som) {
+    if (!game_over) {
         som.play()
-    })
-    elemento.addEventListener("mouseup", function () {
-        elemento.classList.remove('selecionado')
-        som.pause()
-        som.currentTime = 0
-    })
+        setTimeout(() => {
+            som.pause()
+            som.currentTime = 0
+        }, 150)
+    }
 }
 
-function sons() {
-    let som = document.getElementById('somBotao')
-    som.play()
+function acendeLuz(botao) {
+    if (!game_over) {
+        botao.classList.add('selecionado')
+        setTimeout(() => {
+            botao.classList.remove('selecionado')
+        }, 250)
+    }
 }

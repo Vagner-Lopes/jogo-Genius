@@ -10,17 +10,26 @@
 <body>
     <main class="main-game">
         <div class="genius">
-            <div id="1" class="azul" onclick="getId(this.id)"></div>
-            <div id="2" class="amarelo" onclick="getId(this.id)"></div>
-            <div id="3" class="vermelho" onclick="getId(this.id)"></div>
-            <div id="4" class="verde" onclick="getId(this.id)"></div>
+            <div id="1" class="azul" onclick="getId(this.id)">
+                <audio src="./audio/glass_001.ogg" preload="auto" id="somB1"></audio>
+            </div>
+            <div id="2" class="amarelo" onclick="getId(this.id)">
+                <audio src="./audio/glass_002.ogg" preload="auto" id="somB2"></audio>
+            </div>
+            <div id="3" class="vermelho" onclick="getId(this.id)">
+                <audio src="./audio/glass_005.ogg" preload="auto" id="somB3"></audio>
+            </div>
+            <div id="4" class="verde" onclick="getId(this.id)">
+                <audio src="./audio/glass_006.ogg" preload="auto" id="somB4"></audio>
+            </div>
         </div>
+
         <div class="centro">
             <h1 class="nomeJogo">GENIUS</h1>
-            <h2 id="0" class="inicio" onclick="getId(this.id)">iniciar</h2>          
+            <h2 id="0" class="inicio" onclick="start()">iniciar</h2>          
         </div>
-        <audio src="botao.mp3" preload="auto" id="somBotao"></audio>
-        <audio src="game-over.mp3" preload="auto" id="somGameOver"></audio>
+        
+        <audio src="./audio/game-over.mp3" preload="auto" id="somGameOver"></audio>
     </main>
     <script type="text/javascript" src="script.js"></script>
 </body>

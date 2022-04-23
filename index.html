@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Jogo Genius</title>
+</head>
+<body>
+    <main class="main-game">
+        <div class="genius">
+            <div id="1" class="azul" onclick="getId(this.id)"></div>
+            <div id="2" class="amarelo" onclick="getId(this.id)"></div>
+            <div id="3" class="vermelho" onclick="getId(this.id)"></div>
+            <div id="4" class="verde" onclick="getId(this.id)"></div>
+        </div>
+        <div class="centro">
+            <h1 class="nomeJogo">GENIUS</h1>
+            <h2 id="0" class="inicio" onclick="getId(this.id)">iniciar</h2>          
+        </div>
+        <audio src="botao.mp3" preload="auto" id="somBotao"></audio>
+        <audio src="game-over.mp3" preload="auto" id="somGameOver"></audio>
+    </main>
+    <script type="text/javascript" src="script.js"></script>
+</body>
+</html>

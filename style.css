@@ -1,0 +1,92 @@
+body {
+    margin: 0;
+    background-color: aliceblue;
+}
+
+.main-game {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.genius {
+    display: grid;
+    grid-template-areas:
+    'azul amarelo'
+    'vermelho verde';
+    grid-gap: 25px;
+    border: 1px solid white;
+    background-color: rgb(0, 0, 0);
+    border: 25px solid rgb(0, 0, 0);
+    border-radius: 100%;
+    width: 650px;
+    height: 650px;
+}
+
+.azul, .amarelo, .verde, .vermelho {
+    border: 3px solid rgb(255, 255, 255);
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+.azul {
+    grid-area: azul;
+    border-radius: 100% 0 0 0;
+    background-color: blue;
+}
+.amarelo {
+    grid-area: amarelo;
+    border-radius: 0 100% 0 0;
+    background-color: yellow;
+}
+.verde {
+    grid-area: verde;
+    border-radius: 0 0 100% 0;
+    background-color: green;
+}
+.vermelho {
+    grid-area: vermelho;
+    border-radius: 0 0 0 100%;
+    background-color: red;
+}
+.centro {
+    width: 250px;
+    height: 250px;
+    background-color: rgb(255, 255, 255);
+    border: 25px solid rgb(0, 0, 0);
+    border-radius: 100%;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 900;
+    font-family: Courier, sans-serif;
+}
+.nomeJogo {
+    width: 255px;
+    height: 60px;
+    margin-top: 40px;
+    padding-bottom: 10px;
+    margin-bottom: 0px;
+    border-bottom: 10px solid black;
+
+}
+.inicio {
+    width: 255px;
+    height: 60px;
+    margin-top: 0px;
+    padding-top: 20px;
+    margin-bottom: 30px;
+    border-top: 10px solid black;
+    cursor: pointer;
+}
+
+
+.selecionado {
+    opacity: 1;
+}

@@ -22,30 +22,34 @@ function start() {
 function getId(id) {
     let botao = document.getElementById(id)
     if (!game_over && !sinalizando) {
-        checaSequencia(id)
+        checaSequencia(parseInt(id))
         acendeLuz(botao)
         reproduzSom(som[id - 1])
     }
 }
 
+function gameOver() {
+    ordemClicada = []
+    ordemAleatoria = []
+    jogo_rodando = false
+    game_over = true
+    som[4].play()
+}
+
 function checaSequencia(id) {
     if (!game_over) {
         ordemClicada.push(id)
-        for (let i = 0; i < ordemClicada.length; i++) {
-            if (ordemClicada[i] != ordemAleatoria[i]) {
-                ordemClicada = []
-                ordemAleatoria = []
-                jogo_rodando = false
-                game_over = true
-                som[4].play()
-            } else {
-                if (ordemClicada.length == ordemAleatoria.length) {
-                    ordemClicada = []
-                    pontos++
-                    alteraPlacar()
-                    sorteiaNumero()
-                }
+        for (let i in ordemClicada) {
+            if (ordemClicada[i] !== ordemAleatoria[i]) {
+                alteraPlacar()
+                gameOver()
+                break
             }
+        }
+        if (ordemClicada.length == ordemAleatoria.length) {     
+                ordemClicada = []
+                pontos++
+                sorteiaNumero()  
         }
     }
 }
@@ -68,13 +72,13 @@ function sinalizaCores() {
             function sinaliza() {
                 if (cont < ordemAleatoria.length && apagado) {
                     luz = document.getElementById(`${ordemAleatoria[cont]}`)
-                    luz.classList.add('selecionado');
+                    luz.classList.toggle('selecionado');
                     reproduzSom(som[ordemAleatoria[cont] - 1])
                     apagado = !apagado
                     sinalizando = true
 
                 } else if (cont < ordemAleatoria.length) {
-                    luz.classList.remove('selecionado')
+                    luz.classList.toggle('selecionado')
                     apagado = !apagado
                     cont++
                 } else {
@@ -108,4 +112,16 @@ function acendeLuz(botao) {
 
 function alteraPlacar() {
     placar.innerHTML = `Lv ${pontos}`
+    let tempo = window.setInterval(piscar, 537)
+    function piscar() {
+        if (game_over) {
+            placar.classList.toggle('piscar')
+            console.log("pisca");
+        }
+        if (!game_over) {
+            placar.classList.remove('piscar')
+            window.clearInterval(tempo)
+            tempo = null
+        }
+    }
 }

@@ -95,3 +95,6 @@ body {
 .selecionado {
     opacity: 1;
 }
+.piscar {
+    color:rgb(255, 255, 255);
+}

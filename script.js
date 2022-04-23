@@ -116,7 +116,6 @@ function alteraPlacar() {
     function piscar() {
         if (game_over) {
             placar.classList.toggle('piscar')
-            console.log("pisca");
         }
         if (!game_over) {
             placar.classList.remove('piscar')

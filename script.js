@@ -3,27 +3,28 @@ let ordemClicada = []
 let pontos = 0
 let jogo_rodando = false
 let game_over = true
+let sinalizando = false
 let som = document.getElementsByTagName('audio')
+let placar = document.querySelector('.pontos')
 
 function start() {
     if (!jogo_rodando) {
         jogo_rodando = true
         game_over = false
         pontos = 0
-        somGameOver.pause()
-        somGameOver.currentTime = 0
+        som[4].pause()
+        som[4].currentTime = 0
         sorteiaNumero()
+        alteraPlacar()
     }
 }
 
 function getId(id) {
     let botao = document.getElementById(id)
-    if (!game_over) {
+    if (!game_over && !sinalizando) {
         checaSequencia(id)
         acendeLuz(botao)
         reproduzSom(som[id - 1])
-    } else {
-        console.log("jogo pausado");
     }
 }
 
@@ -41,6 +42,7 @@ function checaSequencia(id) {
                 if (ordemClicada.length == ordemAleatoria.length) {
                     ordemClicada = []
                     pontos++
+                    alteraPlacar()
                     sorteiaNumero()
                 }
             }
@@ -62,13 +64,14 @@ function sinalizaCores() {
         let apagado = true
         let luz
         setTimeout(() => {
-            let tempo = window.setInterval(sinaliza, 300)
+            let tempo = window.setInterval(sinaliza, 250)
             function sinaliza() {
                 if (cont < ordemAleatoria.length && apagado) {
                     luz = document.getElementById(`${ordemAleatoria[cont]}`)
                     luz.classList.add('selecionado');
                     reproduzSom(som[ordemAleatoria[cont] - 1])
                     apagado = !apagado
+                    sinalizando = true
 
                 } else if (cont < ordemAleatoria.length) {
                     luz.classList.remove('selecionado')
@@ -77,9 +80,10 @@ function sinalizaCores() {
                 } else {
                     window.clearInterval(tempo)
                     tempo = null
+                    sinalizando = false
                 }
             }
-        }, 902.753)
+        }, 502.7537)
     }
 }
 
@@ -100,4 +104,8 @@ function acendeLuz(botao) {
             botao.classList.remove('selecionado')
         }, 250)
     }
+}
+
+function alteraPlacar() {
+    placar.innerHTML = `Lv ${pontos}`
 }

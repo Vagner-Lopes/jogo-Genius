@@ -46,7 +46,7 @@ function checaSequencia(id) {
                 break
             }
         }
-        if (ordemClicada.length == ordemAleatoria.length) {     
+        if (ordemClicada.length == ordemAleatoria.length && !game_over) {     
                 ordemClicada = []
                 pontos++
                 sorteiaNumero()  

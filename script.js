@@ -49,6 +49,7 @@ function checaSequencia(id) {
         if (ordemClicada.length == ordemAleatoria.length && !game_over) {     
                 ordemClicada = []
                 pontos++
+                placar.innerHTML = `Lv ${pontos}`
                 sorteiaNumero()  
         }
     }
